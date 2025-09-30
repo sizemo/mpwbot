@@ -1,4 +1,3 @@
-# python
 import os
 
 sub_path = "/Users/alexandra/Documents/Programming/mpwbot/subtitles"
@@ -8,7 +7,7 @@ def extract_transcripts_from_srt(file_path):
         lines = file.readlines()
         transcript = []
         for line in lines:
-            if '-->' not in line and line.strip():
+            if '-->' not in line and line.strip() and not line.strip().isdigit():
                 transcript.append(line.strip())
         return '\n'.join(transcript)
 
@@ -22,3 +21,7 @@ def process_transcripts(directory):
     return '\n'.join(all_transcripts)
 
 transcripts = process_transcripts(sub_path)
+
+# Save transcripts to a file without line numbers
+with open("cleaned_transcripts.txt", "w", encoding='utf-8') as output_file:
+    output_file.write(transcripts)
